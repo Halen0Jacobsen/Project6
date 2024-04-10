@@ -23,7 +23,7 @@ jobs:
         run: ./gradlew build
       - name: Document environment
         run: echo ${{ github.workspace }}
-          ls -la ${ github.workspace }}
+          ls -la ${{ github.workspace }}
       - name: Code vulnerability scanning
         uses: anchore/scan-action@v3
         id: scan
