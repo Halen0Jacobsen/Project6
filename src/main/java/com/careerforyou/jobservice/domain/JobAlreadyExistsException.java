@@ -1,2 +1,7 @@
-package com.careerforyou.jobservice.domain;public class JobAlreadyExistsException {
+package com.careerforyou.jobservice.domain;
+
+public class JobAlreadyExistsException extends RuntimeException {
+    public JobAlreadyExistsException(String jobid) {
+        super("A job with Jobid " + jobid + " already exists.");
+    }
 }
