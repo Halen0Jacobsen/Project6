@@ -2,11 +2,19 @@ package com.careerforyou.jobservice.domain;
 
 import java.util.Optional;
 
-public interface JobRepository {
-    Iterable<Job> findAll();
+import com.careerforyou.jobservice.domain.Job;
+import org.springframework.data.jdbc.repository.query.Modifying;
+import org.springframework.data.jdbc.repository.query.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
-    Optional<Job> findByJobid(String jobid);
-    boolean existsByJobid(String jobid);
-    Job save(Job job);
-    void deleteByJobid(String jobid);
-}
+public interface JobRepository extends CrudRepository<Job,Long> {
+
+        Optional<Job> findByJobid(String jobid);
+        boolean existsByJobid(String jobid);
+        @Modifying
+        @Transactional
+        @Query("delete from job where jobid = :jobid")
+        void deleteByJobid(String jobid);
+    }
+

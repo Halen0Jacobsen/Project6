@@ -2,9 +2,15 @@ package com.careerforyou.jobservice.domain;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import org.springframework.data.annotation.*;
+
+import java.time.Instant;
 
 
 public record Job (
+
+        @Id
+        Long id,        // Primary key
 
         @NotBlank(message = "The Job ID must be defined.")
         @Pattern(
@@ -23,5 +29,27 @@ public record Job (
 
         String skill1,
 
-        String skill2
-) {}
+        String skill2,
+
+        @CreatedDate
+        Instant createdDate,
+
+        @LastModifiedDate
+        Instant lastModifiedDate,
+
+        @Version
+        int version
+) {
+        public static Job of(
+//                Long Id,
+                String jobid,
+                String title,
+                String description,
+                String companyname,
+                String skill1,
+                String skill2
+        ) {
+
+                return new Job(null, jobid, title, description, companyname, skill1, skill2, null, null, 0);
+        }
+}

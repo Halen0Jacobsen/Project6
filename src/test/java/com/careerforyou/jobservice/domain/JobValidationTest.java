@@ -1,21 +1,18 @@
 package com.careerforyou.jobservice.domain;
 
-
-import java.util.Set;
-
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
-
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class JobValidationTests {
+public class JobValidationTest {
 
     private static Validator validator;
 
@@ -28,14 +25,14 @@ public class JobValidationTests {
 
     @Test
     void whenAllFieldsCorrectThenValidationSucceeds() {
-        var job = new Job("1", "Dev", "Dev", "Dev", "Devl1", "Dev2");
+        var job = Job.of("1", "Dev", "Dev", "Dev", "Devl1", "Dev2");
         Set<ConstraintViolation<Job>> violations = validator.validate(job);
         assertThat(violations).isEmpty();
     }
 
     @Test
     void whenJobidDefinedButIncorrectThenValidationFails(){
-        var job = new Job("one","Dev", "Dev", "Dev", "Skill1", "Skill2");
+        var job = Job.of("one","Dev", "Dev", "Dev", "Skill1", "Skill2");
         Set<ConstraintViolation<Job>> violations = validator.validate(job);
         assertThat(violations).hasSize(1);
         assertThat(violations.iterator().next().getMessage())
